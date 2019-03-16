@@ -34,7 +34,7 @@ module.exports = {
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
             filename: 'index.html',
-            title: 'Webpack Config',
+            title: 'Dictionaries Manager',
             template: './public/index.html',
         }),
         new WebpackPwaManifest({

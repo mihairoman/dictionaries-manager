@@ -1,6 +1,90 @@
 @import 'materialize-css/sass/materialize.scss';
 
-html, body, #root {
+html,
+body,
+#root {
     width: 100%;
     height: 100%;
+}
+
+.cards-container {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin: 24px 0;
+
+    .card {
+        width: 300px;
+        margin-left: 0.5em;
+        margin-right: 0.5em;
+
+        .card-header {
+            border-bottom: 1px solid rgba(160, 160, 160, 0.2);
+            padding: 8px 24px;
+            font-size: 1.1em;
+            text-align: center;
+        }
+
+        .card-content {
+            padding: 12px 24px;
+            height: 220px;
+            overflow-y: hidden;
+        }
+
+        .card-action {
+            padding: 8px 0px 8px 24px;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        table {
+            font-size: 0.9em;
+            line-height: 0.1em;
+        }
+    }
+
+    @media screen and (min-width: 725px) {
+        justify-content: flex-start;
+    }
+}
+
+.form-container {
+    margin-top: 24px;
+
+    .collection.with-header {
+        .collection-item {
+            display: flex;
+            justify-content: space-between;
+
+            span {
+                width: 40%;
+                overflow-wrap: break-word;
+            }
+
+            a {
+                width: 25px;
+            }
+
+            @media screen and (max-width: 400px) {
+                padding: 10px 5px;
+            }
+        }
+    }
+
+    .form-button {
+        position: absolute;
+        bottom: 20px;
+        right: 0 !important;
+    }
+
+    .input-field.required {
+        &::after {
+            content: '*';
+            color: red;
+            position: absolute;
+            right: 0;
+            bottom: 10px;
+        }
+    }
 }

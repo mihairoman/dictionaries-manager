@@ -4,22 +4,19 @@ export interface DictionaryRow {
 }
 
 export interface Dictionary {
-    id: string
+    id?: string
     name: string
     rows: DictionaryRow[]
 };
 
 export interface DictionariesState {
     readonly dictionaries: Dictionary[]
-    // readonly isLoading: boolean
-    // readonly errors?: string[]
 };
 
 export enum DictionariesActionTypes {
-    FETCH_DICTIONARIES = 'FETCH_DICTIONARIES',
     CREATE_DICTIONARY = 'CREATE_DICTIONARY',
     DELETE_DICTIONARY = 'DELETE_DICTIONARY',
-    EDIT_DICTIONARY = 'EDIT_DICTIONARY',
+    UPDATE_DICTIONARY = 'UPDATE_DICTIONARY',
     VALIDATE_DICTIONARY = 'VALIDATE_DICTIONARY'
 }
 
@@ -28,21 +25,22 @@ export interface DictionariesAction {
     payload: any
 };
 
-interface FetchDictionariesAction extends DictionariesAction {
-    type: DictionariesActionTypes.FETCH_DICTIONARIES,
-    payload: Dictionary[]
-}
-  
-interface CreateDictionaryAction extends DictionariesAction {
+export interface CreateDictionaryAction extends DictionariesAction {
     type: DictionariesActionTypes.CREATE_DICTIONARY
     payload: Dictionary
 }
 
-interface DeleteDictionaryAction extends DictionariesAction {
-    type: DictionariesActionTypes.DELETE_DICTIONARY
+export interface DeleteDictionaryAction extends DictionariesAction {
+    type: DictionariesActionTypes.DELETE_DICTIONARY,
+    payload: Dictionary[]
 }
 
-interface EditDictionaryAction extends DictionariesAction {
-    type: DictionariesActionTypes.EDIT_DICTIONARY,
+export interface UpdateDictionaryAction extends DictionariesAction {
+    type: DictionariesActionTypes.UPDATE_DICTIONARY,
     payload: Dictionary
+}
+
+export enum DictionaryFormMode {
+    NEW = 0,
+    EDIT = 1
 }

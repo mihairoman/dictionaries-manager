@@ -1,45 +1,26 @@
 import { Reducer } from 'react';
-import { DictionariesState, Dictionary } from './types';
+import { DictionariesState, DictionariesActionTypes, DictionariesAction } from './types';
+import { mockData } from '../localStorage';
 
-const mockData = [
-    {
-        id: 'dsdfd22132213',
-        name: 'Some name',
-        rows: [
-            { domain: 'Stonegrey', range: 'Dark Grey' },
-            { domain: 'Midnight Black', range: 'Black' },
-            { domain: 'Mystic Silver', range: ' Silver' }
-        ]
-    }, 
-    {
-        id: '2dr32efdsfds',
-        name: 'Another name',
-        rows: [
-            { domain: 'Stonegrey', range: 'Dark Grey' },
-            { domain: 'Stonegrey', range: 'Dark Grey' },
-            { domain: 'Midnight', range: 'Black Black' },
-            { domain: 'Mystic', range: 'Silver Silver' }
-        ]
-    },
-    {
-        id: 'f23221dasa',
-        name: 'The name',
-        rows: [
-            { domain: 'Stonegrey', range: 'Dark Grey' },
-            { domain: 'Dark Grey', range: 'Stonegrey' },
-            { domain: 'Mystic', range: 'Silver Silver' }
-        ]
-    }
-];
 
 const initialState: DictionariesState = {
-    dictionaries: mockData,
-    // isLoading: true,
-    // errors: []
+    dictionaries: mockData
 }
 
-const dictionariesReducer: Reducer<DictionariesState, any> = (state = initialState, action) => {
+const dictionariesReducer: Reducer<DictionariesState, DictionariesAction> = (state = initialState, action) => {
     switch (action.type) {
+        case DictionariesActionTypes.CREATE_DICTIONARY:
+            return {
+                dictionaries: [...state.dictionaries, ...action.payload]
+            }
+        case DictionariesActionTypes.UPDATE_DICTIONARY:
+            return {
+                dictionaries: [...state.dictionaries, ...action.payload]
+            }
+        case DictionariesActionTypes.DELETE_DICTIONARY:
+            return {
+                dictionaries: [...action.payload]
+            }
         default:
             return {
                 ...state,

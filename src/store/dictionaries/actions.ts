@@ -8,7 +8,7 @@ export type DictionaryThunkAction = (arg: any) => (dispatch: Dispatch<Dictionari
 export const createDictionary: DictionaryThunkAction = (dictionary: Dictionary) =>
     (dispatch: Dispatch<CreateDictionaryAction>) => {
 
-        const newItem = { id: v4(), ...dictionary };
+        const newItem = { ...dictionary, id: v4() };
 
         dispatch({
             payload: newItem,

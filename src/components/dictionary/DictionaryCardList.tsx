@@ -13,7 +13,7 @@ const DictionaryCardList: React.SFC<DictionaryCardListProps> = ({ dictionaries }
         <React.Fragment>
             <div className="cards-container">
                 {dictionaries.map((dictionary) => {
-                    return <DictionaryCard key={dictionary.id} data={dictionary} />
+                    return <DictionaryCard key={`card-${dictionary.id}`} data={dictionary} />
                 })}
             </div>
             <ButtonFloating size='large' link='/createDictionary' classes='red lighten-2'/>

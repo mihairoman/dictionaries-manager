@@ -40,12 +40,19 @@ class DictionaryDetails extends React.Component<IProps, IState> {
         this.handleRemoveRow = this.handleRemoveRow.bind(this);
         this.handleNameChange = this.handleNameChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleInputFocus = this.handleInputFocus.bind(this);
     }
 
     handleAddRow() {
+        this.domainInputRef.current.classList.remove('invalid');
+        this.rangeInputRef.current.classList.remove('invalid');
+
         let domain = this.domainInputRef.current.value.trim();
         let range = this.rangeInputRef.current.value.trim();
-        if (!(domain || range)) {
+
+        if (!(domain && range)) {
+            if (!domain) this.domainInputRef.current.classList.add('invalid');
+            if (!range) this.rangeInputRef.current.classList.add('invalid');
             return;
         }
 
@@ -70,15 +77,36 @@ class DictionaryDetails extends React.Component<IProps, IState> {
     }
 
     handleNameChange(e) {
+        e.target.classList.remove('invalid');
+        const newVal = e.target.value.trim();
         this.setState({
-            name: e.target.value
+            name: newVal
         });
     }
 
     handleSubmit(event) {
         event.preventDefault();
         const { rows, name, id } = this.state;
-        this.props.onSubmit({ rows, name, id })
+        let formIsValid = true;
+
+        if (!name) {
+            this.nameInputRef.current.classList.add('invalid');
+            formIsValid = false;
+        }
+        if (rows.length === 0) {
+            this.domainInputRef.current.classList.add('invalid');
+            this.rangeInputRef.current.classList.add('invalid');
+            formIsValid = false;
+        }
+
+        if (formIsValid) {
+            this.props.onSubmit({ rows, name, id })
+        }
+    }
+
+    handleInputFocus(e) {
+        e.persist();
+        e.target.classList.remove('invalid');
     }
 
     renderNewRowInputs() {
@@ -87,12 +115,14 @@ class DictionaryDetails extends React.Component<IProps, IState> {
                 <div className='col s10 m5'>
                     <div className='input-field required'>
                         <input ref={this.domainInputRef} id='domain' type='text'
+                            onFocus={this.handleInputFocus}
                             className='validate' placeholder='Domain' maxLength={75} />
                     </div>
                 </div>
                 <div className='col s10 m5'>
                     <div className='input-field required'>
                         <input ref={this.rangeInputRef} id='range' type='text'
+                            onFocus={this.handleInputFocus}
                             className='validate' placeholder='Range' maxLength={75}
                         />
                     </div>
